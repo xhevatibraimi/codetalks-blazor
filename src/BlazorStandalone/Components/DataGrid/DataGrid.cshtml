@@ -1,0 +1,23 @@
+﻿@typeparam TItem
+
+<table class="table">
+    <thead>
+        <tr>@GridHeader</tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Items)
+        {
+            <tr>@RowTemplate(item)</tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>@GridFooter</tr>
+    </tfoot>
+</table>
+
+@functions{
+    [Parameter] RenderFragment GridHeader { get; set; }
+    [Parameter] RenderFragment<TItem> RowTemplate { get; set; }
+    [Parameter] RenderFragment GridFooter { get; set; }
+    [Parameter] IReadOnlyList<TItem> Items { get; set; }
+}

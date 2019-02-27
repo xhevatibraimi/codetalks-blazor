@@ -1,0 +1,10 @@
+﻿@page "/component-wrapper"
+
+<i>@ChildContent</i>
+
+@functions{
+
+    [Parameter]
+    private RenderFragment ChildContent { get; set; }
+
+}

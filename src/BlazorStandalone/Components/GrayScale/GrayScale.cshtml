@@ -1,0 +1,19 @@
+﻿<style>
+    .wrapper {
+        opacity: 0.4;
+        filter: alpha(opacity=70); /* msie */
+        background-color: #000;
+        color: red;
+    }
+</style>
+
+<div class="wrapper">
+    @ChildContent
+</div>
+
+@functions{
+
+    [Parameter]
+    private RenderFragment ChildContent { get; set; }
+
+}

@@ -1,0 +1,61 @@
+﻿@inject ProductsService Service
+@page "/products"
+@page "/products/{ProductId}"
+
+<h1>Data Binding</h1>
+
+<EditProduct Product="@ProductToEdit" OnEdit="@EditProduct" OnCreate=@CreateProduct />
+
+<DataGrid TItem="Product" Items="@Products">
+    <GridHeader></GridHeader>
+    <RowTemplate Context="product">
+        <td>@product.Id</td>
+        <td>@product.Name</td>
+        <td>@product.Desc</td>
+        <td>
+            <button class="btn btn-warning" onclick="@(()=>SetProductToEdit(product))">edit</button>
+            <button class="btn btn-danger" onclick="@(()=>DeleteProduct(product.Id))">delete</button>
+        </td>
+    </RowTemplate>
+    <GridFooter></GridFooter>
+</DataGrid>
+
+@functions{
+
+    [Parameter]
+    private string ProductId { get; set; }
+    private List<Product> Products { get; set; }
+    private Product ProductToEdit = new Product();
+
+    protected override void OnInit()
+    {
+        Products = Service.GetAllProducts();
+    }
+
+    private void SetProductToEdit(Product p)
+    {
+        ProductToEdit = p;
+        StateHasChanged();
+    }
+
+    private void EditProduct(Product p)
+    {
+        Service.EditProduct(p);
+        Products = Service.GetAllProducts();
+        StateHasChanged();
+    }
+
+    private void DeleteProduct(string id)
+    {
+        Service.DeleteProduct(id);
+        Products = Service.GetAllProducts();
+        StateHasChanged();
+    }
+
+    private void CreateProduct(Product p)
+    {
+        Service.CreateProduct(p);
+        Products = Service.GetAllProducts();
+        StateHasChanged();
+    }
+}

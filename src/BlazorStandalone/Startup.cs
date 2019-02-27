@@ -1,3 +1,4 @@
+using BlazorStandalone.Services;
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +8,7 @@ namespace BlazorStandalone
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ProductsService>();
         }
 
         public void Configure(IBlazorApplicationBuilder app)

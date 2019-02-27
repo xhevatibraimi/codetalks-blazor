@@ -1,0 +1,57 @@
+﻿@if (!string.IsNullOrWhiteSpace(Product?.Id))
+{
+    <form autocomplete="off" onsubmit="@(()=> { })">
+        <div class="form-group">
+            <label for="product-name" class="form-label">Name</label>
+            <input id="product-name" type="text" name="name" class="form-control" bind="@Product.Name" />
+        </div>
+        <div class="form-group">
+            <label for="product-description" class="form-label">Description</label>
+            <input id="product-description" type="text" class="form-control" name="description" bind="@Product.Desc" />
+        </div>
+        <button class="btn btn-success" onclick="@Submit">submit</button>
+        <button class="btn btn-warning" onclick="@Cancel">cancel</button>
+    </form>
+}
+else
+{
+    <form form autocomplete="off">
+        <div class="form-group">
+            <label for="product-name" class="form-label">Name</label>
+            <input id="product-name" type="text" name="name" class="form-control" bind="@Product.Name" />
+        </div>
+        <div class="form-group">
+            <label for="product-description" class="form-label">Description</label>
+            <input id="product-description" type="text" class="form-control" name="description" bind="@Product.Desc" />
+        </div>
+        <button class="btn btn-success" onclick="@Add">submit</button>
+    </form>
+}
+
+@functions{
+
+    [Parameter] private Product Product { get; set; }
+
+    [Parameter]
+    private Action<Product> OnEdit { get; set; }
+
+    [Parameter]
+    private Action<Product> OnCreate { get; set; }
+
+    private void Submit()
+    {
+        Console.WriteLine(Product);
+        OnEdit?.Invoke(Product);
+    }
+
+    private void Cancel()
+    {
+        Product = new Product();
+    }
+
+    private void Add()
+    {
+        OnCreate?.Invoke(Product);
+    }
+
+}

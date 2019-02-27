@@ -1,0 +1,9 @@
+﻿@page "/routing"
+@page "/routing/{FirstName}"
+
+<h1>Hello Routing with @FirstName</h1>
+
+@functions{
+    [Parameter]
+    string FirstName { get; set; } = "default_value";
+}
